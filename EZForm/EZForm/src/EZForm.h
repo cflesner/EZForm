@@ -303,6 +303,46 @@ typedef enum : NSInteger {
  */
 - (void)form:(EZForm *)form fieldDidEndEditing:(EZFormField *)formField;
 
+/** Asks the delegate if the next form field should become the
+ *  first responder after the Next button has been tapped in the input
+ *  accessory view.
+ *
+ * This method gives the delegate a chance to react to taps of the Next 
+ * button in the input accessory view, and to override the default
+ * behavior if needed.
+ *
+ * @param form The form containing currentField and nextField.
+ *
+ * @param nextField The field that will become the first responder if
+ * YES is returned.
+ *
+ * @param currentField The field that was the first responder when the
+ * Next button was tapped in the input accessory view. If the first
+ * responder is not changed by the delegate, this field will remain the
+ * first responder if NO is returned.
+ */
+- (BOOL)form:(EZForm *)form shouldMoveToNextField:(EZFormField *)nextField fromCurrentField:(EZFormField *)currentField;
+
+/** Asks the delegate if the previous form field should become
+ *  the first responder after the Previous button has been tapped in the
+ *  input accessory view.
+ *
+ * This method gives the delegate a chance to react to taps of the
+ * Previous button in the input accessory view, and to override the default
+ * behavior if needed.
+ *
+ * @param form The form containing currentField and previousField.
+ *
+ * @param previousField The field that will become the first responder if
+ * YES is returned.
+ *
+ * @param currentField The field that was the first responder when the
+ * Previous button was tapped in the input accessory view. If the first
+ * responder is not changed by the delegate, this field will remain the
+ * first responder if NO is returned.
+ */
+- (BOOL)form:(EZForm *)form shouldMoveToPreviousField:(EZFormField *)previousField fromCurrentField:(EZFormField *)currentField;
+
 /** Asks the delegate for the index path to the row containing the user view
  *  for the specified field.
  *

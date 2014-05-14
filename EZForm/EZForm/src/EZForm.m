@@ -551,7 +551,13 @@
     if (currentFormField) {
 	EZFormField *nextFormField = [self firstResponderCapableFormFieldAfterField:currentFormField searchForwards:YES];
 	if (nextFormField) {
-	    [self selectFormFieldForInput:nextFormField];
+            id<EZFormDelegate> delegate = self.delegate;
+
+            if (![delegate respondsToSelector:@selector(form:shouldMoveToNextField:fromCurrentField:)]
+                || [delegate form:self shouldMoveToNextField:nextFormField fromCurrentField:currentFormField])
+            {
+                [self selectFormFieldForInput:nextFormField];
+            }
 	}
     }
 }
@@ -562,7 +568,13 @@
     if (currentFormField) {
 	EZFormField *nextFormField = [self firstResponderCapableFormFieldAfterField:currentFormField searchForwards:NO];
 	if (nextFormField) {
-	    [self selectFormFieldForInput:nextFormField];
+            id<EZFormDelegate> delegate = self.delegate;
+
+            if (![delegate respondsToSelector:@selector(form:shouldMoveToPreviousField:fromCurrentField:)]
+                || [delegate form:self shouldMoveToPreviousField:nextFormField fromCurrentField:currentFormField])
+            {
+                [self selectFormFieldForInput:nextFormField];
+            }
 	}
     }
 }
